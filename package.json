@@ -1,0 +1,28 @@
+{
+    "author": {
+        "name": "Bert Willems",
+        "email": "b.willems@premotion.nl"
+    },
+    "dependencies": {
+        "lodash": "latest"
+    },
+    "description": "A DI container inspired by AngularJS.",
+    "devDependencies" : {
+        "grunt": "latest",
+        "grunt-contrib-jshint": "latest",
+        "grunt-mocha-test": "latest",
+        "grunt-contrib-watch": "latest",
+        "should": "latest"
+    },
+    "engines": {
+        "node": ">= 0.2.0"
+    },
+    "main": "./lib/index.js",
+    "name": "reversejs",
+    "readmeFilename": "README.md",
+    "scripts": {
+        "test": "grunt check-code",
+        "prepublish": "npm prune"
+    },
+    "version": "0.0.1"
+}
