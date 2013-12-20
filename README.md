@@ -1,4 +1,4 @@
-# Reverse.js
+# Reverse.js [![Build Status](https://travis-ci.org/devatwork/reverse.js.png?branch=master)](https://travis-ci.org/devatwork/reverse.js)
 
 A DI container inspired by AngularJS.
 
