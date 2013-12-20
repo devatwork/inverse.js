@@ -3,6 +3,9 @@
         "name": "Bert Willems",
         "email": "b.willems@premotion.nl"
     },
+    "bugs": {
+        "url": "https://github.com/devatwork/reverse.js/issues"
+    },
     "dependencies": {
         "lodash": "latest"
     },
@@ -18,9 +21,29 @@
     "engines": {
         "node": ">= 0.8.0"
     },
+    "homepage": "https://github.com/devatwork/reverse.js",
+    "keywords": [
+        "di",
+        "dependency injection",
+        "dependency",
+        "injection",
+        "injector",
+        "ioc",
+        "inversion of control"
+    ],
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/devatwork/reverse.js/blob/master/LICENSE"
+        }
+    ],
     "main": "./lib/index.js",
     "name": "reversejs",
     "readmeFilename": "README.md",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/devatwork/reverse.js.git"
+    },
     "scripts": {
         "test": "grunt check-code",
         "prepublish": "npm prune"
