@@ -20,7 +20,7 @@ describe('Injector', function() {
 			}).should.throw('Module "mod-b" could not be found!');
 		});
 		it('should start if all depedencies are satisfied', function() {
-			var modA = new Module('mod-a', ['mod-b']);
+			var modA = new Module('mod-a', []);
 			var modB = new Module('mod-b', ['mod-a']);
 			new Injector([modA, modB]);
 		});
@@ -267,7 +267,21 @@ describe('Injector', function() {
 			expectedOrder = ['a', 'b', 'c'],
 			modA = new Module('a').run(function() {actualOrder.push('a');}),
 			modB = new Module('b', ['a']).run(function() {actualOrder.push('b');}),
-			modC = new Module('c', ['b']).run(function() {actualOrder.push('c');});
+			modC = new Module('c', ['b']).run(function() {actualOrder.push('c');}),
+			modD = new Module('d', ['missing']),
+			modCircular = new Module('b', ['c']);
+
+		it('should throw on missing dependency', function() {
+			(function(){
+				new Injector([modD]);
+			}).should.throw('Module "missing" could not be found!');
+		});
+
+		it('should throw on circular dependency', function() {
+			(function(){
+				new Injector([modC, modCircular]);
+			}).should.throw('There is a cycle in the graph. It is not possible to derive a topological sort!');
+		});
 
 		it('should load in order if in order', function() {
 			actualOrder = [];
