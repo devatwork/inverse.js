@@ -260,4 +260,34 @@ describe('Injector', function() {
 			arrayAnnotatedRunInvoked.should.be.true;
 		});
 	});
+
+	// Run module load order
+	describe('load modules in topological order', function() {
+		var actualOrder,
+			expectedOrder = ['a', 'b', 'c'],
+			modA = new Module('a').run(function() {actualOrder.push('a');}),
+			modB = new Module('b', ['a']).run(function() {actualOrder.push('b');}),
+			modC = new Module('c', ['b']).run(function() {actualOrder.push('c');});
+
+		it('should load in order if in order', function() {
+			actualOrder = [];
+			new Injector([modA, modB, modC]);
+
+			actualOrder.should.eql(expectedOrder);
+		});
+
+		it('should load in order if in reverse order', function() {
+			actualOrder = [];
+			new Injector([modC, modB, modA]);
+
+			actualOrder.should.eql(expectedOrder);
+		});
+
+		it('should load in order if in mixed order', function() {
+			actualOrder = [];
+			new Injector([modA, modC, modB]);
+
+			actualOrder.should.eql(expectedOrder);
+		});
+	});
 });
