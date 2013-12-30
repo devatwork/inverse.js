@@ -118,6 +118,17 @@ If resolved, the `factoryFn` will be invoked to produce an instance.
 module.factory('engine', engineFactory);
 ```
 
+### decorator(key, decorateFn)
+
+If resolved, the `decorateFn` will be invoked to decorate an produced instance identified by the `key`. The `$delegate` argument hold the instance.
+
+```js
+module.decorator('engine', ['$delegate', function($delegate) {
+	// Modify the $delegate here
+	return $delegate;
+}];
+```
+
 ### run(runFn)
 
 Registers a `runFn` callback which will be invoked after the injector is initialized.

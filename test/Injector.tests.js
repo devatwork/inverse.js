@@ -210,36 +210,95 @@ describe('Injector', function() {
 				.type('type2', TestType2)
 				.factory('factory2', function() {
 					return new TestType2();
-				}),
+				})
+				.constant('decoratedConstant', constant1)
+				.decorator('decoratedConstant', ['$delegate', 'constant2', function($delegate, constant2) {
+					return $delegate + constant2;
+				}])
+				.type('decoratedType', TestType2)
+				.decorator('decoratedType', ['$delegate', function($delegate) {
+					$delegate.decorated = true;
+					return $delegate;
+				}])
+				.factory('decoratedFactory', function() {
+					return new TestType2();
+				})
+				.decorator('decoratedFactory', ['$delegate', function($delegate) {
+					$delegate.decorated = true;
+					return $delegate;
+				}])
+				.type('nonReturningMonkeyPatcher', TestType2)
+				.decorator('nonReturningMonkeyPatcher', ['$delegate', function($delegate) {
+					$delegate.monkeyed = true;
+				}])
+				.type('doubleDecorated', TestType2)
+				.decorator('doubleDecorated', ['$delegate', function($delegate) {
+					$delegate.first = true;
+					return $delegate;
+				}])
+				.decorator('doubleDecorated', ['$delegate', function($delegate) {
+					$delegate.second = true;
+					return $delegate;
+				}]),
 			parent = new Injector([modB]),
 			injector = new Injector([modA], parent);
+
 		it('should not resolve undeclared dependencies', function() {
 			(function() {
 				return injector.get('not-declared');
 			}).should.throw('No provider for "not-declared"!');
 		});
+
 		it('should resolve declared constants', function() {
 			injector.get('constant1').should.be.exactly(constant1);
 		});
+
 		it('should resolve declared constants in parent', function() {
 			injector.get('constant2').should.be.exactly(constant2);
 		});
+
 		it('should resolve declared types', function() {
 			injector.get('type1').should.be.an.instanceOf(TestType1);
 		});
+
 		it('should resolve declared types in parent', function() {
 			injector.get('type2').should.be.an.instanceOf(TestType2);
 		});
+
 		it('should resolve declared factories', function() {
 			injector.get('factory1').should.be.an.instanceOf(TestType1);
 		});
+
 		it('should resolve declared factories in parent', function() {
 			injector.get('factory2').should.be.an.instanceOf(TestType2);
 		});
+
 		it('should not resolve circular dependencies', function() {
 			(function() {
 				return injector.get('type3');
 			}).should.throw('Can not resolve circular dependency!');
+		});
+
+		it('should resolve decorated constants', function() {
+			injector.get('decoratedConstant').should.be.eql(constant1 + constant2);
+		});
+
+		it('should resolve decorated types', function() {
+			injector.get('decoratedType').decorated.should.be.true;
+		});
+
+		it('should resolve decorated factories', function() {
+			injector.get('decoratedFactory').decorated.should.be.true;
+		});
+
+		it('should resolve decorated decorators, yo dawg', function() {
+			var t = injector.get('doubleDecorated');
+			t.first.should.be.true;
+			t.second.should.be.true;
+		});
+
+		it('should resolve if the decorator does not return a new value', function() {
+			injector.get('nonReturningMonkeyPatcher').monkeyed.should.be.true;
 		});
 	});
 

@@ -27,7 +27,7 @@ describe('Module', function() {
 	});
 
 	// Constant tests
-	describe('constant(name, value)', function() {
+	describe('constant(key, value)', function() {
 		var moduleName = 'my-module',
 			module = new Module(moduleName);
 
@@ -48,7 +48,7 @@ describe('Module', function() {
 	});
 
 	// Type tests
-	describe('type(name, constructor)', function() {
+	describe('type(key, constructor)', function() {
 		var moduleName = 'my-module',
 			module = new Module(moduleName);
 		var Type = function() {
@@ -71,7 +71,7 @@ describe('Module', function() {
 	});
 
 	// Factory tests
-	describe('factory(name, constructor)', function() {
+	describe('factory(key, constructor)', function() {
 		var moduleName = 'my-module',
 			module = new Module(moduleName);
 		var factoryMethod = function() {
@@ -90,6 +90,29 @@ describe('Module', function() {
 				value = factoryMethod;
 			module.factory(name, value);
 			module.providers.should.includeEql([name, 'factory', value]);
+		});
+	});
+
+	// Factory tests
+	describe('decorater(key, constructor)', function() {
+		var moduleName = 'my-module',
+			module = new Module(moduleName);
+		var decorateMethod = function() {
+		};
+
+		it('should register the decorator', function() {
+			var name = 'decorator-1',
+				value = decorateMethod;
+			var result = module.decorator(name, value);
+			result.should.be.exactly(module);
+			module.providers.should.includeEql([name, 'decorator', value]);
+		});
+
+		it('should register the second decorator', function() {
+			var name = 'decorator-2',
+				value = decorateMethod;
+			module.decorator(name, value);
+			module.providers.should.includeEql([name, 'decorator', value]);
 		});
 	});
 
