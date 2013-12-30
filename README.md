@@ -1,4 +1,4 @@
-# Reverse.js [![Build Status](https://travis-ci.org/devatwork/reverse.js.png?branch=master)](https://travis-ci.org/devatwork/reverse.js)
+# Inverse.js [![Build Status](https://travis-ci.org/devatwork/inverse.js.png?branch=master)](https://travis-ci.org/devatwork/inverse.js)
 
 A DI container inspired by the AngularJS.
 
@@ -12,7 +12,7 @@ One of its core principles is the separation of behavior from dependency resolut
 
 ## Concepts
 
-Reverse.js is heavily inspired by the *DI Container* as implemented in [AngularJS](http://angularjs.org/), it derives most of its concepts from it as well.
+Inverse.js is heavily inspired by the *DI Container* as implemented in [AngularJS](http://angularjs.org/), it derives most of its concepts from it as well.
 
 The main element is the DI container itself is called the *Injector*. Its goal is to resolve values from providers.
 
@@ -23,7 +23,7 @@ Providers can be grouped into *Modules*. Modules get registered in the injector.
 ## Example
 
 ```js
-var di = require('./reversejs');
+var di = require('./inversejs');
 
 // Define a Car object which needs an engine obviously
 var Car = function(engine) {

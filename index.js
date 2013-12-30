@@ -2,6 +2,6 @@
 "use strict";
 
 /**
- * Export the public API of reverse.js.
+ * Export the public API of inverse.js.
  */
 module.exports = require('./lib/index');
