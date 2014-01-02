@@ -7,7 +7,6 @@
         "url": "https://github.com/devatwork/inverse.js/issues"
     },
     "dependencies": {
-        "lodash": "latest"
     },
     "description": "A DI container inspired by AngularJS.",
     "devDependencies" : {
