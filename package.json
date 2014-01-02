@@ -1,51 +1,52 @@
 {
-    "author": {
-        "name": "Bert Willems",
-        "email": "b.willems@premotion.nl"
-    },
-    "bugs": {
-        "url": "https://github.com/devatwork/inverse.js/issues"
-    },
-    "dependencies": {
-    },
-    "description": "A DI container inspired by AngularJS.",
-    "devDependencies" : {
-        "grunt": "latest",
-        "grunt-cli": "latest",
-        "grunt-contrib-jshint": "latest",
-        "grunt-mocha-test": "latest",
-        "grunt-contrib-watch": "latest",
-        "should": "latest"
-    },
-    "engines": {
-        "node": ">= 0.8.0"
-    },
-    "homepage": "https://github.com/devatwork/inverse.js",
-    "keywords": [
-        "di",
-        "dependency injection",
-        "dependency",
-        "injection",
-        "injector",
-        "ioc",
-        "inversion of control"
-    ],
-    "licenses": [
-        {
-            "type": "MIT",
-            "url": "https://github.com/devatwork/inverse.js/blob/master/LICENSE"
-        }
-    ],
-    "main": "./lib/index.js",
-    "name": "inversejs",
-    "readmeFilename": "README.md",
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/devatwork/inverse.js.git"
-    },
-    "scripts": {
-        "test": "grunt check-code",
-        "prepublish": "npm prune"
-    },
-    "version": "0.0.1"
+  "author": {
+    "name": "Bert Willems",
+    "email": "b.willems@premotion.nl"
+  },
+  "bugs": {
+    "url": "https://github.com/devatwork/inverse.js/issues"
+  },
+  "dependencies": {},
+  "description": "A DI container inspired by AngularJS.",
+  "devDependencies": {
+    "grunt": "latest",
+    "grunt-cli": "latest",
+    "grunt-contrib-jshint": "latest",
+    "grunt-mocha-test": "latest",
+    "grunt-contrib-watch": "latest",
+    "should": "latest",
+    "grunt-contrib-gluejs": "0.0.4",
+    "grunt-contrib-uglify": "~0.2.7"
+  },
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "homepage": "https://github.com/devatwork/inverse.js",
+  "keywords": [
+    "di",
+    "dependency injection",
+    "dependency",
+    "injection",
+    "injector",
+    "ioc",
+    "inversion of control"
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/devatwork/inverse.js/blob/master/LICENSE"
+    }
+  ],
+  "main": "./lib/index.js",
+  "name": "inversejs",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/devatwork/inverse.js.git"
+  },
+  "scripts": {
+    "test": "grunt check-code",
+    "prepublish": "npm prune"
+  },
+  "version": "0.0.1"
 }

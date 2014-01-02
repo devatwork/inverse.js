@@ -4,6 +4,7 @@
 		{
 			"path": "/",
 			"folder_exclude_patterns": [
+				"dist",
 				"node_modules"
 			],
 			"file_exclude_patterns": [
