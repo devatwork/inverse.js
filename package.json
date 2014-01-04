@@ -15,7 +15,7 @@
     "grunt-mocha-test": "latest",
     "grunt-contrib-watch": "latest",
     "should": "latest",
-    "grunt-contrib-gluejs2": "latest",
+    "grunt-gluejs2": "latest",
     "grunt-contrib-uglify": "latest"
   },
   "engines": {
