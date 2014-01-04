@@ -2,7 +2,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-mocha-test');
 	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-contrib-gluejs');
+	grunt.loadNpmTasks('grunt-contrib-gluejs2');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 
 	var srcFiles = [
@@ -41,11 +41,21 @@ module.exports = function(grunt) {
 			browser: {
 				options: {
 					banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %> */\n',
-					export: 'inversejs',
-					main: 'lib/index.js'
+					basepath: 'lib',
+					export: 'inversejs'
 				},
-				src: 'lib/**/*.js',
+				src: '**/*.js',
 				dest: 'dist/inverse.browser.js'
+			},
+			amd: {
+				options: {
+					amd: true,
+					banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %> */\n',
+					basepath: 'lib',
+					export: 'inversejs'
+				},
+				src: '**/*.js',
+				dest: 'dist/inverse.browser.amd.js'
 			}
 		},
 		uglify: {
@@ -56,6 +66,11 @@ module.exports = function(grunt) {
 				files: {
 					'dist/inverse.browser.min.js': ['dist/inverse.browser.js']
 				}
+			},
+			amd: {
+				files: {
+					'dist/inverse.browser.amd.min.js': ['dist/inverse.browser.amd.js']
+				}
 			}
 		}
 	});
@@ -63,6 +78,5 @@ module.exports = function(grunt) {
 	// Default task(s).
 	grunt.registerTask('check-code', ['jshint', 'mochaTest']);
 	grunt.registerTask('default', ['check-code']);
-	grunt.registerTask('browser', ['gluejs', 'uglify']);
-	grunt.registerTask('dist', ['check-code', 'browser']);
+	grunt.registerTask('dist', ['check-code', 'gluejs', 'uglify']);
 };

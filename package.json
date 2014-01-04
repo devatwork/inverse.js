@@ -15,8 +15,8 @@
     "grunt-mocha-test": "latest",
     "grunt-contrib-watch": "latest",
     "should": "latest",
-    "grunt-contrib-gluejs": "0.0.4",
-    "grunt-contrib-uglify": "~0.2.7"
+    "grunt-contrib-gluejs2": "latest",
+    "grunt-contrib-uglify": "latest"
   },
   "engines": {
     "node": ">= 0.8.0"
