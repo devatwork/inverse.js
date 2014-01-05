@@ -9,27 +9,32 @@ describe('Injector', function() {
 		it('should start if there are no modules', function() {
 			new Injector();
 		});
+
 		it('should start if there is one module without dependencies', function() {
 			var modA = new Module('mod-a');
 			new Injector([modA]);
 		});
+
 		it('should start if one of module has missing dependencies', function() {
 			var modA = new Module('mod-a', ['mod-b']);
 			(function(){
 				new Injector([modA]);
 			}).should.throw('Module "mod-b" could not be found!');
 		});
+
 		it('should start if all depedencies are satisfied', function() {
 			var modA = new Module('mod-a', []);
 			var modB = new Module('mod-b', ['mod-a']);
 			new Injector([modA, modB]);
 		});
+
 		it('should start if a dependency is registered on the parent injector', function() {
 			var modA = new Module('mod-a', ['mod-b']),
 				modB = new Module('mod-b'),
 				parent = new Injector([modB]);
 			new Injector([modA], parent);
 		});
+
 		it('should register the injector into itself', function() {
 			var injector = new Injector();
 			injector.get('$injector').should.be.exactly(injector);
@@ -57,6 +62,7 @@ describe('Injector', function() {
 			invoked.should.be.true;
 			actualConstant.should.be.exactly(expectedConstant);
 		});
+
 		it('should invoke annotated functions', function() {
 			var func1 = function(param) {
 					invoked = true;
@@ -68,6 +74,7 @@ describe('Injector', function() {
 			invoked.should.be.true;
 			actualConstant.should.be.exactly(expectedConstant);
 		});
+
 		it('should invoke array annotated functions', function() {
 			var func1 = function(param) {
 					invoked = true;
@@ -91,6 +98,7 @@ describe('Injector', function() {
 			actualConstant.should.be.exactly(expectedConstant);
 			actualScope.should.be.exactly(expectedScope);
 		});
+
 		it('should invoke annotated functions with self', function() {
 			var func1 = function(param) {
 					invoked = true;
@@ -104,6 +112,7 @@ describe('Injector', function() {
 			actualConstant.should.be.exactly(expectedConstant);
 			actualScope.should.be.exactly(expectedScope);
 		});
+
 		it('should invoke array annotated functions with self', function() {
 			var func1 = function(param) {
 					invoked = true;
@@ -116,6 +125,7 @@ describe('Injector', function() {
 			actualConstant.should.be.exactly(expectedConstant);
 			actualScope.should.be.exactly(expectedScope);
 		});
+
 		it('should invoke array annotated functions with locals', function() {
 			var expectedLocal = 132456798,
 				actualLocal,
@@ -137,19 +147,23 @@ describe('Injector', function() {
 	// Instantiate tests
 	describe('annotate(fn)', function() {
 		var injector = new Injector();
+		
 		it('should no annotate if the function is already annotated', function() {
 			var fn = function(injected) {};
 			fn.$inject = ['test'];
 			injector.annotate(fn).should.be.exactly(fn.$inject);
 		});
+
 		it('should annotate the function if not already annotated', function() {
 			var fn = function(test) {};
 			injector.annotate(fn).should.be.eql(['test']);
 		});
+
 		it('should annotate the function if using array syntax', function() {
 			var fn = function(injected) {};
 			injector.annotate(['test', fn]).should.be.eql(['test']);
 		});
+
 		it('should not be able to annotate objects', function() {
 			var fn = function(injected) {};
 			(function(){
@@ -173,15 +187,19 @@ describe('Injector', function() {
 		it('should be able to instantiate a parameterless class', function() {
 			injector.instantiate(TestType1).should.be.an.instanceOf(TestType1);
 		});
+
 		it('should be able to instantiate a class with an injecter parameter', function() {
 			injector.instantiate(TestType2).should.be.an.instanceOf(TestType2);
 		});
+
 		it('should be able to instantiate a class annotated with array syntax', function() {
 			injector.instantiate(['injected', TestType1]).should.be.an.instanceOf(TestType1);
 		});
+
 		it('should be able to instantiate a class with a local', function() {
 			injector.instantiate(TestType3, {local: 'injected!'}).should.be.an.instanceOf(TestType3);
 		});
+
 		it('should be able to instantiate a type by its name', function() {
 			injector.instantiate('TestType3', {local: 'injected!'}).should.be.an.instanceOf(TestType3);
 		});
@@ -320,7 +338,7 @@ describe('Injector', function() {
 		});
 	});
 
-	// Run module load order
+	// Run module load order tests
 	describe('load modules in topological order', function() {
 		var actualOrder,
 			expectedOrder = ['a', 'b', 'c'],
