@@ -258,6 +258,14 @@ describe('Injector', function() {
 					$delegate.second = true;
 					return $delegate;
 				}]),
+				constantOverride = 'test-3-value',
+				modOverride = new Module('mod-override', ['mod-a'])
+					.constant('constant1', constantOverride)
+					.type('type1', TestType2)
+					.type('type3', TestType2)
+					.factory('factory1', function() {
+						return new TestType2();
+					}),
 			parent = new Injector([modB]),
 			injector = new Injector([modA], parent);
 
@@ -317,6 +325,24 @@ describe('Injector', function() {
 
 		it('should resolve if the decorator does not return a new value', function() {
 			injector.get('nonReturningMonkeyPatcher').monkeyed.should.be.true;
+		});
+
+		it('should resolve overriden types', function() {
+			var overridenInjector = new Injector([modA, modOverride]);
+
+			overridenInjector.get('constant1').should.be.exactly(constantOverride);
+			overridenInjector.get('type1').should.be.an.instanceOf(TestType2);
+			overridenInjector.get('type3').should.be.an.instanceOf(TestType2);
+			overridenInjector.get('factory1').should.be.an.instanceOf(TestType2);
+		});
+
+		it('should resolve overriden types in parent', function() {
+			var overridenInjector = new Injector([modOverride], injector);
+
+			overridenInjector.get('constant1').should.be.exactly(constantOverride);
+			overridenInjector.get('type1').should.be.an.instanceOf(TestType2);
+			overridenInjector.get('type3').should.be.an.instanceOf(TestType2);
+			overridenInjector.get('factory1').should.be.an.instanceOf(TestType2);
 		});
 	});
 
